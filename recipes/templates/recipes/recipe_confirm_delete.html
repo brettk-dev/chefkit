@@ -4,11 +4,11 @@
 
 
 {% block content %}
-    <h1>{{ recipe.name }}</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <a href="{% url 'recipes:detail' recipe.id %}">Cancel</a>
-        <button type="submit">Yes, Delete</button>
-    </form>
+<h2>{{ recipe.name }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <a href="{% url 'recipes:detail' recipe.id %}">Cancel</a>
+    <button type="submit">Yes, Delete</button>
+</form>
 {% endblock %}

@@ -2,67 +2,67 @@
 
 {% block title %}{{verb}} Recipe{% endblock %}
 
-    
-{% block content %}
-    <h1>{{verb}} Recipe</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
 
-        <div id="ingredient_forms">
+{% block content %}
+<h2>{{verb}} Recipe</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <fieldset>
+        <legend>Ingredients</legend>
+        <div id="ingredient_forms" style="display: grid; grid-template-columns: repeat(4, auto);">
             {{ ingredient_forms.as_p }}
         </div>
+        <button type="button" id="add_ingredient_btn">Add More Ingredients</button>
+    </fieldset>
 
-        <p>
-            <button type="button" id="add_ingredient_btn">Add More Ingredients</button>
-        </p>
-
-        <div id="step_forms">
+    <fieldset>
+        <legend>Steps</legend>
+        <div id="step_forms" style="display: grid; grid-template-columns: repeat(3, auto);">
             {{ step_forms.as_p }}
         </div>
+        <button type="button" id="add_step_btn">Add More Steps</button>
+    </fieldset>
 
-        <p>
-            <button type="button" id="add_step_btn">Add More Steps</button>
-        </p>
+    <button type="submit">{{ verb }}</button>
+</form>
 
-        <button type="submit">{{ verb }}</button>
-    </form>
-    
 
-    <template id="ingredient_form_template">
-        {{ ingredient_forms.empty_form.as_p }}
-    </template>
+<template id="ingredient_form_template">
+    {{ ingredient_forms.empty_form.as_p }}
+</template>
 
-    <template id="step_form_template">
-        {{ step_forms.empty_form.as_p }}
-    </template>
+<template id="step_form_template">
+    {{ step_forms.empty_form.as_p }}
+</template>
 
-    <script>
-        document.querySelector('#add_ingredient_btn').addEventListener('click', (e) => {
-            e.preventDefault();
-            addNewFieldSet('ingredient');
+<script>
+    document.querySelector('#add_ingredient_btn').addEventListener('click', (e) => {
+        e.preventDefault();
+        addNewFieldSet('ingredient');
+    })
+
+    document.querySelector('#add_step_btn').addEventListener('click', (e) => {
+        e.preventDefault();
+        addNewFieldSet('step');
+    })
+
+    function addNewFieldSet(type) {
+        const count = document.querySelector(`#id_${type}_set-TOTAL_FORMS`).value
+        var form_template = document.querySelector(`#${type}_form_template`);
+        var clone = form_template.content.cloneNode(true);
+        clone.querySelectorAll('label').forEach((label) => {
+            label.htmlFor = label.htmlFor.replace('__prefix__', count);
         })
-
-        document.querySelector('#add_step_btn').addEventListener('click', (e) => {
-            e.preventDefault();
-            addNewFieldSet('step');
+        clone.querySelectorAll('input,textarea').forEach((input) => {
+            input.name = input.name.replace('__prefix__', count);
+            input.id = input.id.replace('__prefix__', count);
+            input.value = '';
+            input.checked = false;
         })
-        
-        function addNewFieldSet(type) {
-            const count = document.querySelector(`#id_${type}_set-TOTAL_FORMS`).value
-            var form_template = document.querySelector(`#${type}_form_template`);
-            var clone = form_template.content.cloneNode(true);
-            clone.querySelectorAll('label').forEach((label) => {
-                label.htmlFor = label.htmlFor.replace('__prefix__', count);
-            })
-            clone.querySelectorAll('input,textarea').forEach((input) => {
-                input.name = input.name.replace('__prefix__', count);
-                input.id = input.id.replace('__prefix__', count);
-                input.value = '';
-                input.checked = false;
-            })
-            document.querySelector(`#${type}_forms`).appendChild(clone);
-            document.querySelector(`#id_${type}_set-TOTAL_FORMS`).value = +count + 1
-        };
-    </script>
+        document.querySelector(`#${type}_forms`).appendChild(clone);
+        document.querySelector(`#id_${type}_set-TOTAL_FORMS`).value = +count + 1
+    };
+</script>
 {% endblock %}
