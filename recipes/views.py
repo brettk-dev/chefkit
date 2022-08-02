@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
@@ -7,18 +8,24 @@ from .forms import IngredientInlineFormSet, StepInlineFormSet
 from .models import Recipe
 
 
-class RecipeListView(ListView):
+class RecipeListView(LoginRequiredMixin, ListView):
     model = Recipe
     context_object_name = 'recipes'
 
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
 
-class RecipeDetailView(DetailView):
+
+class RecipeDetailView(LoginRequiredMixin, DetailView):
     model = Recipe
 
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
 
-class RecipeCreateView(CreateView):
+
+class RecipeCreateView(LoginRequiredMixin, CreateView):
     model = Recipe
-    fields = ('name',)
+    fields = ('name', 'time', 'desc')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -30,7 +37,9 @@ class RecipeCreateView(CreateView):
         return context
 
     def form_valid(self, form, ingredient_forms, step_forms):
-        self.object = form.save()
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
         ingredients = ingredient_forms.save(commit=False)
         for ingredient in ingredients:
             ingredient.recipe = self.object
@@ -57,9 +66,9 @@ class RecipeCreateView(CreateView):
             return self.form_invalid(form, ingredient_forms, step_forms)
 
 
-class RecipeUpdateView(UpdateView):
+class RecipeUpdateView(LoginRequiredMixin, UpdateView):
     model = Recipe
-    fields = ('name',)
+    fields = ('name', 'time', 'desc')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -71,7 +80,9 @@ class RecipeUpdateView(UpdateView):
         return context
 
     def form_valid(self, form, ingredient_forms, step_forms):
-        self.object = form.save()
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
         ingredients = ingredient_forms.save(commit=False)
         for ingredient in ingredients:
             ingredient.recipe = self.object
@@ -99,6 +110,6 @@ class RecipeUpdateView(UpdateView):
             return self.form_invalid(form, ingredient_forms, step_forms)
 
 
-class RecipeDeleteView(DeleteView):
+class RecipeDeleteView(LoginRequiredMixin, DeleteView):
     model = Recipe
     success_url = reverse_lazy('recipes:list')

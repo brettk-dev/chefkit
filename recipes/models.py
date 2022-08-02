@@ -1,9 +1,14 @@
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 
 
 class Recipe(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,
+                                on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
+    desc = models.TextField(default='')
+    time = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
