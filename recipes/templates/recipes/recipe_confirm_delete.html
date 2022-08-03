@@ -4,7 +4,7 @@
 
 
 {% block content %}
-<h2>{{ recipe.name }}</h2>
+<h2 class="page_header">{{ recipe.name }}</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}

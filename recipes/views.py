@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   UpdateView)
 
-from .forms import IngredientInlineFormSet, StepInlineFormSet
+from .forms import IngredientInlineFormSet, RecipeForm, StepInlineFormSet
 from .models import Recipe
 
 
@@ -25,7 +25,7 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):
 
 class RecipeCreateView(LoginRequiredMixin, CreateView):
     model = Recipe
-    fields = ('name', 'time', 'desc')
+    form_class = RecipeForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

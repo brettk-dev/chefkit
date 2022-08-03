@@ -22,4 +22,5 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('recipes/', include('recipes.urls')),
     path('', RecipeListView.as_view(), name='home'),
+    path("__reload__/", include("django_browser_reload.urls")),
 ]

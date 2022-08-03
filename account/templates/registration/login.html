@@ -1,14 +1,24 @@
 {% extends 'base.html' %}
-    
+
 {% block title %}Login{% endblock %}
 
 {% block content %}
 
+<h2 class="page_header">Login</h2>
+
 <form method="post">
     {% csrf_token %}
-    {{ form }}
-    <div>
-        <button type="submit">Login</button>
+
+    {% for field in form %}
+    <div class="form_field">
+        {{field.label}}
+        {{field}}
+    </div>
+    {% endfor %}
+
+    <div class="text-right mt-4">
+        <a href="{% url 'account:register' %}">Register</a>
+        <button type="submit" class="btn primary_btn">Login</button>
     </div>
 </form>
 

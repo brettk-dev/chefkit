@@ -4,8 +4,11 @@
 
 
 {% block content %}
-<h2>Recipes</h2>
-<ul>
+<h2 class="page_header">Recipes</h2>
+
+<a href="{% url 'recipes:create' %}">+ Create Recipe</a>
+
+<ul class="list-disc ml-6">
     {% for recipe in recipes %}
     <li>
         <a href="{% url 'recipes:detail' pk=recipe.id %}">

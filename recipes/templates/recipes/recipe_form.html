@@ -4,37 +4,110 @@
 
 
 {% block content %}
-<h2>{{verb}} Recipe</h2>
+<h2 class="page_header">{{verb}} Recipe</h2>
 <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ formset.management_form }}
+
+    {{ form.non_field_errors }}
+
+    {% for field in form %}
+    <div class="form_field">
+        {{ field.errors }}
+        {{ field.label }}
+        {{ field }}
+    </div>
+    {% endfor %}
 
     <fieldset>
         <legend>Ingredients</legend>
-        <div id="ingredient_forms" style="display: grid; grid-template-columns: repeat(4, auto);">
-            {{ ingredient_forms.as_p }}
+        {{ ingredient_forms.management_form}}
+
+        <div id="ingredient_forms">
+            {% for ingredient in ingredient_forms %}
+            <div class="flex gap-2">
+                <div class="form_field w-24">
+                    {{ ingredient.quantity.errors }}
+                    {{ ingredient.quantity.label}}
+                    {{ ingredient.quantity }}
+                </div>
+                <div class="form_field w-24">
+                    {{ ingredient.unit.errors }}
+                    {{ ingredient.unit.label }}
+                    {{ ingredient.unit }}
+                </div>
+                <div class="form_field flex-1">
+                    {{ ingredient.name.errors }}
+                    {{ ingredient.name.label }}
+                    {{ ingredient.name }}
+                </div>
+            </div>
+            {% endfor %}
         </div>
-        <button type="button" id="add_ingredient_btn">Add More Ingredients</button>
+
+        <button type="button" id="add_ingredient_btn" class="btn">+ Ingredient</button>
     </fieldset>
 
     <fieldset>
         <legend>Steps</legend>
-        <div id="step_forms" style="display: grid; grid-template-columns: repeat(3, auto);">
-            {{ step_forms.as_p }}
+        {{ step_forms.management_form}}
+
+        <div id="step_forms">
+            {% for step in step_forms %}
+            <div class="flex gap-2">
+                <div class="form_field w-24">
+                    {{ step.number.errors }}
+                    {{ step.number.label}}
+                    {{ step.number }}
+                </div>
+                <div class="form_field flex-1">
+                    {{ step.description.errors }}
+                    {{ step.description.label }}
+                    {{ step.description }}
+                </div>
+            </div>
+            {% endfor %}
         </div>
-        <button type="button" id="add_step_btn">Add More Steps</button>
+        <button type="button" id="add_step_btn" class="btn">+ Step</button>
     </fieldset>
 
-    <button type="submit">{{ verb }}</button>
+    <button type="submit" class="btn primary_btn">{{ verb }}</button>
 </form>
 
 
 <template id="ingredient_form_template">
-    {{ ingredient_forms.empty_form.as_p }}
+    <div class="flex gap-2">
+        <div class="form_field w-24">
+            {{ ingredient_forms.empty_form.quantity.errors}}
+            {{ ingredient_forms.empty_form.quantity.label}}
+            {{ ingredient_forms.empty_form.quantity }}
+        </div>
+        <div class="form_field w-24">
+            {{ ingredient_forms.empty_form.unit.errors }}
+            {{ ingredient_forms.empty_form.unit.label }}
+            {{ ingredient_forms.empty_form.unit }}
+        </div>
+        <div class="form_field flex-1">
+            {{ ingredient_forms.empty_form.name.errors }}
+            {{ ingredient_forms.empty_form.name.label }}
+            {{ ingredient_forms.empty_form.name }}
+        </div>
+    </div>
 </template>
 
 <template id="step_form_template">
-    {{ step_forms.empty_form.as_p }}
+    <div class="flex gap-2">
+        <div class="form_field w-24">
+            {{ step_forms.empty_form.number.errors}}
+            {{ step_forms.empty_form.number.label}}
+            {{ step_forms.empty_form.number }}
+        </div>
+        <div class="form_field flex-1">
+            {{ step_forms.empty_form.number.errors}}
+            {{ step_forms.empty_form.description.label }}
+            {{ step_forms.empty_form.description }}
+        </div>
+    </div>
 </template>
 
 <script>

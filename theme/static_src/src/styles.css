@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    a {
+        @apply inline-block px-4 py-2 text-teal-500;
+    }
+
+    fieldset {
+        @apply border border-slate-900/10 my-4 p-2;
+    }
+
+    [type='text'],
+    [type='email'],
+    [type='url'],
+    [type='password'],
+    [type='number'],
+    [type='date'],
+    [type='datetime-local'],
+    [type='month'],
+    [type='search'],
+    [type='tel'],
+    [type='time'],
+    [type='week'],
+    [multiple],
+    textarea,
+    select {
+        @apply border border-slate-900/10;
+    }
+
+    legend {
+        @apply font-bold px-2;
+    }
+
+    .btn {
+        @apply bg-slate-100 my-2 px-4 py-2;
+    }
+
+    .primary_btn {
+        @apply bg-teal-500 text-white transition-colors;
+    }
+
+    .primary_btn:hover {
+        @apply bg-teal-600;
+    }
+
+    .form_field {
+        @apply flex flex-col;
+    }
+
+    .page_header {
+        @apply my-6 text-4xl;
+    }
+
+    .section_header {
+        @apply my-4 text-2xl;
+    }
+}
