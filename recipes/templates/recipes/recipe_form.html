@@ -7,9 +7,10 @@
 <h2 class="page_header">{{verb}} Recipe</h2>
 <form method="POST">
     {% csrf_token %}
-    {{ formset.management_form }}
-
     {{ form.non_field_errors }}
+    {% for hidden in form.hidden_fields %}
+    {{ hidden }}
+    {% endfor %}
 
     {% for field in form %}
     <div class="form_field">
@@ -22,9 +23,14 @@
     <fieldset>
         <legend>Ingredients</legend>
         {{ ingredient_forms.management_form}}
+        {{ ingredient_forms.non_field_errors }}
 
         <div id="ingredient_forms">
             {% for ingredient in ingredient_forms %}
+            {{ ingredient.non_field_errors }}
+            {% for hidden in ingredient.hidden_fields %}
+            {{ hidden }}
+            {% endfor %}
             <div class="flex gap-2">
                 <div class="form_field w-24">
                     {{ ingredient.quantity.errors }}
@@ -54,6 +60,10 @@
 
         <div id="step_forms">
             {% for step in step_forms %}
+            {{ step.non_field_errors }}
+            {% for hidden in step.hidden_fields %}
+            {{ hidden }}
+            {% endfor %}
             <div class="flex gap-2">
                 <div class="form_field w-24">
                     {{ step.number.errors }}
@@ -71,7 +81,9 @@
         <button type="button" id="add_step_btn" class="btn">+ Step</button>
     </fieldset>
 
-    <button type="submit" class="btn primary_btn">{{ verb }}</button>
+    <div class="text-right">
+        <button type="submit" class="btn primary_btn">{{ verb }}</button>
+    </div>
 </form>
 
 

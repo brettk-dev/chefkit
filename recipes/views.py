@@ -68,7 +68,7 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
 
 class RecipeUpdateView(LoginRequiredMixin, UpdateView):
     model = Recipe
-    fields = ('name', 'time', 'desc')
+    form_class = RecipeForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

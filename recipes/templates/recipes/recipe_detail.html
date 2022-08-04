@@ -5,12 +5,16 @@
 
 {% block content %}
 
-<h2 class="page_header mb-0">{{ recipe.name }}</h2>
-<nav>
-    <a href="{% url 'recipes:update' recipe.id %}">Edit</a>
-    <a href="{% url 'recipes:delete' recipe.id %}">Delete</a>
-</nav>
-<small>{{ recipe.time }} minutes</small>
+<div class="flex items-center">
+    <h2 class="page_header my-2">{{ recipe.name }}</h2>
+    <div class="flex-1"></div>
+    <nav>
+        <a href="{% url 'recipes:update' recipe.id %}">Edit</a>
+        <a href="{% url 'recipes:delete' recipe.id %}">Delete</a>
+    </nav>
+</div>
+
+<small>{{ recipe.time }} minutes | Serves {{ recipe.serves }}</small>
 
 <p>
     {{ recipe.description}}

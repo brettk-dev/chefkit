@@ -7,8 +7,9 @@ class Recipe(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    description = models.TextField(default='')
     time = models.IntegerField(default=0)
+    serves = models.IntegerField(default=0)
+    description = models.TextField(default='')
 
     def __str__(self):
         return self.name
@@ -20,7 +21,7 @@ class Recipe(models.Model):
 class Ingredient(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     quantity = models.CharField(max_length=255)
-    unit = models.CharField(max_length=255)
+    unit = models.CharField(max_length=255, default='')
     name = models.CharField(max_length=255)
 
     def __str__(self):
