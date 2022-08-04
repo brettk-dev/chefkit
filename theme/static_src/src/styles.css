@@ -34,7 +34,15 @@
     }
 
     .btn {
-        @apply bg-slate-100 my-2 px-4 py-2;
+        @apply bg-slate-100 my-2 px-4 py-2 transition-colors;
+    }
+
+    .btn:hover {
+        @apply bg-slate-200;
+    }
+
+    .deleted>.form_field {
+        @apply opacity-20;
     }
 
     .primary_btn {
@@ -47,6 +55,15 @@
 
     .form_field {
         @apply flex flex-col;
+    }
+
+    .formset_delete {
+        @apply mt-4 self-start w-10;
+    }
+
+    .formset_delete [type=checkbox] {
+        position: absolute;
+        top: -9999px;
     }
 
     .page_header {

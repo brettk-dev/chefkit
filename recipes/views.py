@@ -87,10 +87,14 @@ class RecipeUpdateView(LoginRequiredMixin, UpdateView):
         for ingredient in ingredients:
             ingredient.recipe = self.object
             ingredient.save()
+        for ingredient in ingredient_forms.deleted_objects:
+            ingredient.delete()
         steps = step_forms.save(commit=False)
         for step in steps:
             step.recipe = self.object
             step.save()
+        for step in step_forms.deleted_objects:
+            step.delete()
         return redirect('recipes:detail', pk=self.object.pk)
 
     def form_invalid(self, form, ingredient_forms, step_forms):
