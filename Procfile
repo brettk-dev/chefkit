@@ -1,1 +1,1 @@
-web: gunicorn chefkit:app
+web: gunicorn chefkit.wsgi
