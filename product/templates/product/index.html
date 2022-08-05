@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+
+<h2 class="page_header text-teal-600">ChefKit</h2>
+
+<p>
+    ChefKit is a web application that allows you to create and manage your own recipes.
+</p>
+
+<div class="grid gap-8 grid-cols-3 my-12">
+    <div class="card">
+        <div class="card_body">
+            <h3 class="card_title">Create a Recipe</h3>
+            <p class="card_text">
+                Create a recipe and share it with your friends.
+            </p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card_body">
+            <h3 class="card_title">View Recipes</h3>
+            <p class="card_text">
+                View all of the recipes you have created.
+            </p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card_body">
+            <h3 class="card_title">View Your Recipes</h3>
+            <p class="card_text">
+                View all of the recipes you have created.
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

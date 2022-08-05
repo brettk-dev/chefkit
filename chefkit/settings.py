@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'account',
+    'product',
     'recipes',
     'tailwind',
     'theme',
@@ -130,7 +131,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = reverse_lazy('recipes:list')
-LOGOUT_REDIRECT_URL = reverse_lazy('home')
+LOGOUT_REDIRECT_URL = reverse_lazy('product:index')
 LOGIN_URL = reverse_lazy('account:login')
 
 TAILWIND_APP_NAME = 'theme'

@@ -21,6 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('account.urls')),
     path('recipes/', include('recipes.urls')),
-    path('', RecipeListView.as_view(), name='home'),
+    path('', include('product.urls')),
     path("__reload__/", include("django_browser_reload.urls")),
 ]

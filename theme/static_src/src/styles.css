@@ -41,6 +41,14 @@
         @apply bg-slate-200;
     }
 
+    .card {
+        @apply p-4 rounded shadow-md;
+    }
+
+    .card_title {
+        @apply text-teal-600 text-xl;
+    }
+
     .deleted>.form_field {
         @apply opacity-20;
     }
