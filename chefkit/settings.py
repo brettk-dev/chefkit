@@ -31,7 +31,9 @@ SECRET_KEY = os.environ['CK_SECRET']
 if not IS_HEROKU:
     DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['chefkit.herokuapp.com']
+if not IS_HEROKU:
+    ALLOWED_HOSTS.append('localhost')
 
 
 # Application definition
